@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Renforce Dynamics — Robotics team advancing humanoid locomotion and embodied intelligence.">
+    <title>Renforce Dynamics | Advancing the Isaac Lab Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script>
+      (function () {
+        const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+        if (!isMobile && !window.location.pathname.endsWith("/index.html")) {
+          window.location.replace("./index.html");
+        }
+      })();
+    </script>
+    <style>
+        :root {
+            --primary-color: #3870e8;
+            --secondary-color: #1a1a1a;
+            --accent-color: #00bcd4;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--text-color);
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .text-center { text-align: center; }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 2em;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            margin-top: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #2c59b8;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.4em;
+            font-weight: 900;
+            color: var(--secondary-color);
+            text-decoration: none;
+            padding: 15px 0;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        /* Hero */
+        #hero {
+            position: relative;
+            min-height: 100svh;
+            background: #0f172a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            background: rgba(15, 23, 42, 0.35);
+        }
+
+        .hero-overlay-content {
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            padding: 1.75rem 1.5rem;
+            border-radius: 16px;
+            max-width: 720px;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .hero-overlay-content h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            line-height: 1.1;
+        }
+
+        .hero-overlay-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-overlay-content .tagline {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+            color: #e2e8f0;
+        }
+
+        .hero-overlay-content .intro,
+        .hero-overlay-content .future {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 0.9rem;
+            opacity: 0.92;
+        }
+
+        .hero-overlay-content .future {
+            font-weight: 500;
+            color: #f1f5f9;
+        }
+
+        .hero-overlay-content .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-overlay-content .hero-credit {
+            font-size: 0.8rem;
+            opacity: 0.65;
+            margin: 0;
+        }
+
+        .hero-overlay-content .hero-credit a {
+            color: #93c5fd;
+            text-decoration: underline;
+        }
+
+        /* Features */
+        #features {
+            padding: 60px 0;
+        }
+
+        #features .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: left;
+            border: 1px solid #eee;
+        }
+
+        .feature-box h3 {
+            color: var(--secondary-color);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            color: #555;
+            margin: 0;
+        }
+
+        /* Focus */
+        #focus {
+            background-color: var(--background-color);
+            padding: 60px 0;
+        }
+
+        .focus-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .focus-tag {
+            background: #fff;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 500;
+            color: var(--primary-color);
+            border: 1px solid var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        /* Collaboration */
+        #collaboration {
+            background-color: #fff;
+            padding: 60px 0;
+        }
+
+        #collaboration .inner-box {
+            background-color: var(--background-color);
+            padding: 40px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        #collaboration h2 {
+            margin-bottom: 15px;
+        }
+
+        #collaboration p {
+            font-size: 1.05em;
+            color: #444;
+            margin-bottom: 25px;
+        }
+
+        #collaboration .inner-box h2::after {
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 30px 0;
+            font-size: 0.85em;
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#hero" class="logo">RENFORCE <span>DYNAMICS</span></a>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="hero-video">
+            <video playsinline autoplay muted loop preload="metadata">
+                <source src="./static/videos/teaser.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="hero-overlay">
+            <div class="hero-overlay-content">
+                <h1>RENFORCE <span>DYNAMICS</span></h1>
+                <p class="tagline">Building the next generation of perceptive, agile humanoid robots.</p>
+                <p class="intro">
+                    We are an open robotics team exploring the full stack of embodied intelligence:
+                    scalable reinforcement learning, foundation behavior priors, predictive world models,
+                    and closed-loop sim-to-real deployment.
+                </p>
+                <p class="future">
+                    Current focus: multi-robot coordination, lifelong skill acquisition, and robust
+                    autonomy on resource-constrained hardware.
+                </p>
+                <div class="hero-links">
+                    <a class="btn btn-primary" href="https://github.com/Renforce-Dynamics" target="_blank">GitHub</a>
+                    <a class="btn btn-secondary" href="#features">Our Contribution</a>
+                </div>
+                <p class="hero-credit">
+                    Parkour simulation powered by <a href="https://github.com/php-parkour/php-parkour.github.io" target="_blank">PHP</a>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="text-center">
+        <div class="container">
+            <h2>Building Blocks for Complex Robotics</h2>
+            <p>RobotLib facilitates rapid development by standardizing assets and ensuring cross-platform configuration alignment.</p>
+
+            <div class="grid">
+                <div class="feature-box">
+                    <h3>Multi-Configuration Support</h3>
+                    <p>Robust configurations for Humanoids (K1, R2, SMPLX), Quadrupedal (Go2), and custom experimental platforms.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Seamless Ecosystem Integration</h3>
+                    <p>Extending the Isaac Lab workflow with alignment modules to bridge simulation domains.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Task-Agnostic Modules</h3>
+                    <p>Modules like trackerLab, beyondMimic, and soccerLab support diverse tasks from locomotion to multi-agent problems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="focus" class="text-center">
+        <div class="container">
+            <h2>Solving Diverse Robotic Problems</h2>
+            <p>Our work focuses on tackling challenging research questions in simulation and physical deployment.</p>
+
+            <div class="focus-grid">
+                <span class="focus-tag">Humanoid Locomotion</span>
+                <span class="focus-tag">Dynamic Multi-Contact Tasks</span>
+                <span class="focus-tag">Motion Imitation Learning</span>
+                <span class="focus-tag">Sim-to-Real Deployment</span>
+                <span class="focus-tag">Multi-Agent Systems</span>
+                <span class="focus-tag">Configuration Unification</span>
+                <span class="focus-tag">Advanced Actuator Modeling</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="collaboration" class="text-center">
+        <div class="container">
+            <div class="inner-box">
+                <h2>Partner With Us</h2>
+                <p>We are actively seeking collaborations to accelerate robotics research. Whether you are an academic institution, an industry partner, or an open-source contributor, we welcome your expertise.</p>
+                <a href="mailto:contact@renforce-dynamics.com" class="btn btn-primary">Initiate Discussion (Email)</a>
+                <a href="https://github.com/Renforce-Dynamics/robotlib/issues" class="btn btn-secondary" target="_blank">Open a GitHub Issue</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; <span id="year"></span> Renforce Dynamics. All rights reserved.</p>
+            <p><a href="mailto:contact@renforce-dynamics.com">Contact Us</a> | <a href="https://github.com/Renforce-Dynamics" target="_blank">GitHub Organization</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

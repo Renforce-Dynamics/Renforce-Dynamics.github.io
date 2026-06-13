@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Renforce Dynamics — Robotics team advancing humanoid locomotion and embodied intelligence.">
     <title>Renforce Dynamics | Advancing the Isaac Lab Ecosystem</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script>
+      (function () {
+        const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+        if (isMobile && !window.location.pathname.endsWith("/index-mobile.html")) {
+          window.location.replace("./index-mobile.html");
+        }
+      })();
+    </script>
     <style>
         :root {
             --primary-color: #3870e8; /* Vibrant Blue */
@@ -58,7 +70,7 @@
             font-size: 2.8em;
             position: relative;
         }
-        
+
         h2::after {
             content: '';
             display: block;
@@ -93,7 +105,7 @@
             background-color: #2c59b8;
             box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
         }
-        
+
         .btn-secondary {
             background-color: transparent;
             color: var(--primary-color);
@@ -154,29 +166,119 @@
 
         /* ------------------ Hero Section ------------------ */
         #hero {
-            background-image: linear-gradient(135deg, var(--background-color) 0%, #ffffff 100%);
-            padding: 160px 0;
-            min-height: 50vh;
+            position: relative;
+            min-height: 100vh;
+            background: #0f172a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        #hero h1 {
-            font-size: 4.5em;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .hero-overlay-content {
+            pointer-events: auto;
+            background: rgba(15, 23, 42, 0.62);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            padding: 2.75rem 3.25rem;
+            border-radius: 18px;
+            max-width: 760px;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .hero-overlay-content h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
             line-height: 1.1;
         }
 
-        #hero h1 span {
-            color: var(--primary-color);
-            font-weight: 900;
+        .hero-overlay-content h1 span {
+            color: var(--accent-color);
         }
 
-        #hero p {
-            font-size: 1.4em;
-            color: #555;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            font-weight: 300;
+        .hero-overlay-content .tagline {
+            font-size: 1.35rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+            color: #e2e8f0;
+        }
+
+        .hero-overlay-content .intro,
+        .hero-overlay-content .future {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 1.1rem;
+            opacity: 0.92;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-overlay-content .future {
+            font-weight: 500;
+            color: #f1f5f9;
+        }
+
+        .hero-overlay-content .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-overlay-content .hero-credit {
+            font-size: 0.85rem;
+            opacity: 0.65;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        .hero-overlay-content .hero-credit a {
+            color: #93c5fd;
+            text-decoration: underline;
+        }
+
+        .hero-overlay-content .hero-credit a:hover {
+            color: #bfdbfe;
         }
 
         /* ------------------ Features Section ------------------ */
@@ -219,7 +321,7 @@
             font-size: 1.6em;
             margin-bottom: 15px;
         }
-        
+
         .feature-box p {
             color: #555;
         }
@@ -252,7 +354,7 @@
             background: var(--primary-color);
             color: white;
         }
-        
+
         /* ------------------ Collaboration Section ------------------ */
         #collaboration {
             background-color: #fff;
@@ -266,20 +368,20 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             border-left: 5px solid var(--primary-color);
         }
-        
+
         #collaboration h2 {
             margin-bottom: 20px;
         }
-        
+
         #collaboration p {
             font-size: 1.2em;
             color: #444;
             margin-bottom: 40px;
         }
-        
+
         /* Reset h2 margin for the box */
         #collaboration .inner-box h2::after {
-            display: none; 
+            display: none;
         }
 
         /* ------------------ Footer ------------------ */
@@ -300,6 +402,41 @@
             color: var(--primary-color);
         }
 
+        /* ------------------ Responsive ------------------ */
+        @media screen and (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero-overlay-content {
+                padding: 1.75rem 1.5rem;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .hero-overlay-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-overlay-content .tagline {
+                font-size: 1.1rem;
+            }
+
+            .hero-overlay-content .intro,
+            .hero-overlay-content .future {
+                font-size: 0.95rem;
+            }
+
+            #hero {
+                min-height: 100svh;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero-overlay-content h1 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -312,42 +449,71 @@
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#features">Ecosystem</a></li>
                     <li><a href="#focus">Tasks</a></li>
-                    <li><a href="#collaboration">Collaboration</a></li> <li><a href="https://github.com/Renforce-Dynamics" target="_blank">GitHub</a></li>
+                    <li><a href="#collaboration">Collaboration</a></li>
+                    <li><a href="https://github.com/Renforce-Dynamics" target="_blank">GitHub</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section id="hero" class="section text-center">
-        <div class="container is-visible">
-            <h1>Advancing the <br> <span>Isaac Lab Ecosystem</span></h1>
-            <p>We are a research group dedicated to enhancing the Isaac Lab framework, providing unified configurations and task-agnostic modules for diverse robot architectures and complex control problems.</p>
-            <a href="https://github.com/Renforce-Dynamics/robotlib" class="btn btn-primary" target="_blank">
-                Explore RobotLib Hub
-            </a>
-            <a href="#features" class="btn btn-secondary">
-                Our Contribution
-            </a>
+    <section id="hero" class="section is-visible text-center">
+        <!-- Interactive MuJoCo parkour background -->
+        <div class="hero-video">
+            <iframe
+                src="./mujoco_wasm/dist-desktop/index.html?bg=1"
+                loading="eager"
+                title="Renforce Dynamics Interactive Parkour Background"
+                allow="fullscreen">
+            </iframe>
+        </div>
+
+        <!-- Team intro overlay -->
+        <div class="hero-overlay">
+            <div class="hero-overlay-content">
+                <h1>RENFORCE <span>DYNAMICS</span></h1>
+                <p class="tagline">Building the next generation of perceptive, agile humanoid robots.</p>
+                <p class="intro">
+                    We are an open robotics team exploring the full stack of embodied intelligence:
+                    scalable reinforcement learning, foundation behavior priors, predictive world models,
+                    and closed-loop sim-to-real deployment. Our goal is to push humanoid locomotion and
+                    perception beyond structured labs into real-world, unstructured environments.
+                </p>
+                <p class="future">
+                    Current focus: multi-robot coordination, lifelong skill acquisition, and robust
+                    autonomy on resource-constrained hardware.
+                </p>
+                <div class="hero-links">
+                    <a class="btn btn-primary" href="https://github.com/Renforce-Dynamics" target="_blank">
+                        <span>GitHub</span>
+                    </a>
+                    <a class="btn btn-secondary" href="#features">
+                        <span>Our Contribution</span>
+                    </a>
+                </div>
+                <p class="hero-credit">
+                    Parkour simulation powered by <a href="https://github.com/php-parkour/php-parkour.github.io" target="_blank">PHP</a>.
+                </p>
+            </div>
         </div>
     </section>
 
     <section id="features" class="section text-center">
         <div class="container">
-            <h2>🧱 Building Blocks for Complex Robotics</h2>
+            <h2>Building Blocks for Complex Robotics</h2>
             <p>RobotLib facilitates rapid development by standardizing assets and ensuring cross-platform configuration alignment.</p>
 
             <div class="grid">
                 <div class="feature-box">
                     <h3>Multi-Configuration Support</h3>
-                    <p>Provides robust configurations for **various robot architectures**, including Humanoids (K1, R2, SMPLX), Quadrupedal (Go2), and custom experimental platforms.</p>
+                    <p>Provides robust configurations for <strong>various robot architectures</strong>, including Humanoids (K1, R2, SMPLX), Quadrupedal (Go2), and custom experimental platforms.</p>
                 </div>
                 <div class="feature-box">
                     <h3>Seamless Ecosystem Integration</h3>
-                    <p>Designed specifically to extend and enhance the **Isaac Lab workflow**. Offers necessary alignment modules to bridge simulation domains (e.g., Isaac Lab to MuJoCo order alignment).</p>
+                    <p>Designed specifically to extend and enhance the <strong>Isaac Lab workflow</strong>. Offers necessary alignment modules to bridge simulation domains (e.g., Isaac Lab to MuJoCo order alignment).</p>
                 </div>
                 <div class="feature-box">
                     <h3>Task-Agnostic Modules</h3>
-                    <p>Our configuration modules (`trackerLab`, `beyondMimic`, `soccerLab`) are structured to support a **wide range of tasks**, from dynamic locomotion to motion imitation and cooperative multi-agent problems.</p>
+                    <p>Our configuration modules (<code>trackerLab</code>, <code>beyondMimic</code>, <code>soccerLab</code>) are structured to support a <strong>wide range of tasks</strong>, from dynamic locomotion to motion imitation and cooperative multi-agent problems.</p>
                 </div>
             </div>
         </div>
@@ -355,9 +521,9 @@
 
     <section id="focus" class="section text-center">
         <div class="container">
-            <h2>🎯 Solving Diverse Robotic Problems</h2>
+            <h2>Solving Diverse Robotic Problems</h2>
             <p>Our work focuses on tackling challenging research questions in simulation and physical deployment.</p>
-            
+
             <div class="focus-grid">
                 <span class="focus-tag">Humanoid Locomotion</span>
                 <span class="focus-tag">Dynamic Multi-Contact Tasks</span>
@@ -369,11 +535,11 @@
             </div>
         </div>
     </section>
-    
+
     <section id="collaboration" class="section text-center">
         <div class="container">
             <div class="inner-box">
-                <h2>🤝 Partner With Us</h2>
+                <h2>Partner With Us</h2>
                 <p>We are actively seeking collaborations to accelerate robotics research. Whether you are an academic institution, an industry partner, or an open-source contributor, we welcome your expertise.</p>
                 <a href="mailto:contact@renforce-dynamics.com" class="btn btn-primary">
                     Initiate Discussion (Email)
@@ -396,7 +562,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Set current year in footer
             document.getElementById('year').textContent = new Date().getFullYear();
-            
+
             // Scroll-Reveal Logic
             const sections = document.querySelectorAll('.section');
 
@@ -414,7 +580,7 @@
 
             // Check on load and on scroll
             window.addEventListener('scroll', checkVisibility);
-            checkVisibility(); 
+            checkVisibility();
         });
     </script>
 
