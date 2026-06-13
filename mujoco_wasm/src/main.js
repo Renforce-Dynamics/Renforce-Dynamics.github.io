@@ -165,42 +165,59 @@ export class MuJoCoDemo {
     this.depthCameraPoseViz.add(this.depthCameraMarker);
     this.depthCameraView.add(this.depthCameraPoseViz);
 
-    this.scene.background = new THREE.Color(0.15, 0.25, 0.35);
-    // Fog: (color, near, far). Increase far so distant terrain stays visible.
-    // this.scene.fog = new THREE.Fog(this.scene.background, 30, 120);
+    // Outdoor sky gradient: warm horizon blending to soft overhead blue.
+    const skyCanvas = document.createElement('canvas');
+    skyCanvas.width = 512;
+    skyCanvas.height = 512;
+    const skyCtx = skyCanvas.getContext('2d');
+    const skyGradient = skyCtx.createLinearGradient(0, skyCanvas.height, 0, 0);
+    skyGradient.addColorStop(0.0, '#e8dcc8'); // warm horizon haze
+    skyGradient.addColorStop(0.35, '#a7c4d9'); // mid blue
+    skyGradient.addColorStop(1.0, '#6d9cc8'); // overhead sky
+    skyCtx.fillStyle = skyGradient;
+    skyCtx.fillRect(0, 0, skyCanvas.width, skyCanvas.height);
+    this.scene.background = new THREE.CanvasTexture(skyCanvas);
+    this.scene.background.colorSpace = THREE.SRGBColorSpace;
 
-    this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.1 * 3.14 );
+    // Soft atmospheric fog to hide the horizon edge and give outdoor depth.
+    const fogColor = new THREE.Color(0xa7c4d9);
+    this.scene.fog = new THREE.Fog(fogColor, 35, 110);
+
+    this.ambientLight = new THREE.AmbientLight( 0xffffff, 0.15 * 3.14 );
     this.ambientLight.name = 'AmbientLight';
     this.scene.add( this.ambientLight );
 
-    this.spotlight = new THREE.SpotLight();
+    // Main "sun" spotlight: high, warm, and directional.
+    this.spotlight = new THREE.SpotLight(0xfff5e1);
     this.spotlight.angle = 1.11;
     this.spotlight.distance = 10000;
     this.spotlight.penumbra = 0.5;
     this.spotlight.castShadow = true; // default false
-    this.spotlight.intensity = this.spotlight.intensity * 3.14 * 10.0;
+    this.spotlight.intensity = this.spotlight.intensity * 3.14 * 3.5;
     this.spotlight.shadow.mapSize.width = 1024; // default
     this.spotlight.shadow.mapSize.height = 1024; // default
     this.spotlight.shadow.camera.near = 0.1; // default
     this.spotlight.shadow.camera.far = 100; // default
-    this.spotlight.position.set(0, 3, 3);
+    this.spotlight.position.set(6, 12, 4);
     const targetObject = new THREE.Object3D();
     this.scene.add(targetObject);
     this.spotlight.target = targetObject;
     targetObject.position.set(0, 1, 0);
     this.scene.add( this.spotlight );
 
-    // Extra fill lights for clearer scene visibility.
-    this.hemiLight = new THREE.HemisphereLight(0xbfd8ff, 0x1f2a3a, 0.35 * 2.0);
+    // Hemisphere light: open-air sky/ground ambient.
+    this.hemiLight = new THREE.HemisphereLight(0x87CEEB, 0x5D4C3A, 0.5 * 2.0);
     this.hemiLight.position.set(0, 6, 0);
     this.scene.add(this.hemiLight);
 
-    this.fillLightLeft = new THREE.DirectionalLight(0xffffff, 0.28 * 2.0);
-    this.fillLightLeft.position.set(-4, 3, 2);
+    // Warm directional key from the right (sun side).
+    this.fillLightLeft = new THREE.DirectionalLight(0xfff5e1, 0.35 * 2.0);
+    this.fillLightLeft.position.set(8, 6, 3);
     this.scene.add(this.fillLightLeft);
 
-    this.fillLightRight = new THREE.DirectionalLight(0xffffff, 0.22 * 2.0);
-    this.fillLightRight.position.set(4, 2.5, -1.5);
+    // Cool subtle fill from the left.
+    this.fillLightRight = new THREE.DirectionalLight(0xc8d8e8, 0.15 * 2.0);
+    this.fillLightRight.position.set(-4, 4, -2);
     this.scene.add(this.fillLightRight);
 
     this.renderer = new THREE.WebGLRenderer( { antialias: true } );

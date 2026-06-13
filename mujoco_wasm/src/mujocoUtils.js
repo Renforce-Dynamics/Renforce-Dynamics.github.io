@@ -473,10 +473,10 @@ export async function loadSceneFromURL(mujoco, filename, parent) {
 
       // Force distinct colors for each terrain box height in the parkour demo.
       const terrainBoxColors = {
-        terrain_box_2: [0.2, 0.5, 0.9, 1.0],   // blue
-        terrain_box_3: [0.2, 0.8, 0.4, 1.0],   // green
-        terrain_box_4: [0.95, 0.75, 0.2, 1.0], // yellow
-        terrain_box_5: [0.9, 0.3, 0.3, 1.0],   // red
+        terrain_box_2: [0.55, 0.50, 0.42, 1.0], // light tan rock
+        terrain_box_3: [0.48, 0.44, 0.36, 1.0], // medium sandstone
+        terrain_box_4: [0.62, 0.58, 0.48, 1.0], // warm limestone
+        terrain_box_5: [0.40, 0.37, 0.30, 1.0], // dark granite
       };
       if (Object.prototype.hasOwnProperty.call(terrainBoxColors, geomName)) {
         color = terrainBoxColors[geomName];
